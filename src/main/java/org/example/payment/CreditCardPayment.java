@@ -14,7 +14,13 @@ public class CreditCardPayment extends PaymentMethod {
 
     @Override
     public PaymentResult processPayment(double amount) {
-        // TODO: add basic validations
+        // TODO: add basic validations ( done )
+        if(cardHolderName.isBlank() || cardNumber.isBlank()) {
+            return new PaymentResult(false, "Card Holder Name or Card number can't be empty");
+        }
+        if(cardNumber.length() != 16) {
+            return new PaymentResult(false, "Credit cards consist of 16 . Write without spaces.");
+        }
         return new PaymentResult(true, "Paid " + amount + " using credit card ending with " + cardNumber.substring(cardNumber.length() - 4));
     }
 }

@@ -48,7 +48,11 @@ public class ConsoleMenu {
     }
 
     private void addItem(){
-        // TODO: check if order exists
+        // TODO: check if order exists ( done )
+        if(currentOrder == null) {
+            System.out.println("To add item you need to create new order. Press 1 in main menu");
+            return;
+        }
 
         System.out.println("Item name:");
         String itemName = scanner.nextLine();
@@ -64,7 +68,12 @@ public class ConsoleMenu {
     }
 
     private void viewOrder(){
-        // TODO: check if order exists
+        // TODO: check if order exists ( done )
+
+        if(currentOrder == null) {
+            System.out.println("To view order you need to create new order. Press 1 in main menu");
+            return;
+        }
 
         System.out.println("Customer: " + currentOrder.getCustomerName());
         System.out.println("Status: " +  currentOrder.getStatus());
@@ -78,7 +87,12 @@ public class ConsoleMenu {
     }
 
     private void payOrder(){
-        // TODO: check if order exists
+        // TODO: check if order exists ( done )
+
+        if(currentOrder == null) {
+            System.out.println("To pay for order you need to create new order. Press 1 in main menu");
+            return;
+        }
 
         System.out.println("""
                 Select payment method:
@@ -110,13 +124,23 @@ public class ConsoleMenu {
     }
 
     private  PaymentMethod createPaypalPayment(){
-        // TODO
-        return null;
+        // TODO ( done )
+
+        System.out.println("Email address: ");
+        String email = scanner.nextLine();
+
+        return PaymentMethodFactory.createPayPalPayment(email);
     }
 
     private PaymentMethod createGiftCardPayment(){
-        // TODO
-        return null;
+        // TODO ( done )
+        System.out.println("Gift Card Code: ");
+        String code = scanner.nextLine();
+
+        System.out.println("Gift Card Balance: ");
+        double balance = Double.parseDouble(scanner.nextLine());
+
+        return PaymentMethodFactory.createGiftCardPayment(code, balance);
     }
 
     private void printMenu(){

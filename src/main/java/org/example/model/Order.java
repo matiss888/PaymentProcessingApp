@@ -16,17 +16,29 @@ public class Order {
     }
 
     public void addItem(OrderItem item){
-        // TODO: prevent adding items if order is already paid
+        // TODO: prevent adding items if order is already paid ( done )
+        if(this.status == OrderStatus.PAID) {
+            System.out.println("This order has already been paid for.");
+            return;
+        }
         items.add(item);
     }
 
     public double calculateTotal(){
-        // TODO: calculate total from all order items (including discounts)
-        return 0;
+        // TODO: calculate total from all order items (including discounts) ( done )
+        double sum = 0;
+        for(OrderItem item : items) {
+            sum += item.calculateTotal();
+        }
+        return discount.apply(sum);
     }
 
     public void markAsPaid(){
-        // TODO: validate order is not empty
+        // TODO: validate order is not empty ( done )
+        if(items.isEmpty()) {
+            System.out.println("Make sure there is atleast one item in the order.");
+            return;
+        }
         this.status = OrderStatus.PAID;
     }
 
@@ -62,7 +74,11 @@ public class Order {
             return this;
         }
         public Order build(){
-            // TODO: validate customerName
+            // TODO: validate customerName ( done )
+            if(customerName.isBlank()) {
+                System.out.println("Customer name can't be empty. Please enter your name.");
+                return null;
+            }
             return new Order(this);
         }
     }
